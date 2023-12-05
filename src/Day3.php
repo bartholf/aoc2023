@@ -10,6 +10,7 @@ class Day3 extends DayBase
     {
         $self = new self();
         $self->part1();
+        $self->part2();
     }
 
     private function hasSymbol(int $lineIx, int $colIx, int $value)
@@ -83,6 +84,24 @@ class Day3 extends DayBase
         return $sum;
     }
 
+    private function getGears()
+    {
+        $lines = $this->file->getLines();
+        $rowIx = 0;
+        $found = range(0, count($lines) - 1);
+        foreach ($lines as $line) {
+            preg_match_all('/\*/', $line, $matches, PREG_OFFSET_CAPTURE);
+            if ($match = $matches[0][0][1] ?? null) {
+                if (!is_array($found[$rowIx])) {
+                    $found[$rowIx] = [];
+                }
+                $found[$rowIx][] = $match;
+            }
+            print_r($found);
+            $rowIx++;
+        }
+    }
+
     public function part1(): int
     {
         $this->setIndata('day3p1.txt');
@@ -93,6 +112,7 @@ class Day3 extends DayBase
     public function part2(): int
     {
         $this->setIndata('day3p2.txt');
+        $this->getGears();
         return 0;
     }
 }
