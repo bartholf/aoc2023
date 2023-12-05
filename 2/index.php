@@ -54,4 +54,46 @@ foreach (range(1, 100) as $i) {
     }
 }
 
-print_r(array_sum($valid)); // 2563
+fclose($file);
+
+echo array_sum($valid) . PHP_EOL; // 2563
+
+// Part 2
+$file = fopen(__DIR__ . "/input2.txt", 'r');
+
+function getTotals(array $set): int
+{
+    $r = $set['r'];
+    $g = $set['g'];
+    $b = $set['b'];
+
+    return $r + $g + $b;
+}
+
+$data = [];
+while (($line = fgets($file)) !== false) {
+    parseLine(trim($line));
+}
+fclose($file);
+
+$totals = [];
+
+$pow = 0;
+
+foreach ($data as $k => $v) {
+    $totals[$k] = [
+        'r' => 0,
+        'g' => 0,
+        'b' => 0,
+    ];
+
+    foreach ($v as $item) {
+        $totals[$k]['r'] = ($item['r'] ?? 0) > $totals[$k]['r'] ? $item['r'] : $totals[$k]['r'];
+        $totals[$k]['g'] = ($item['g'] ?? 0) > $totals[$k]['g'] ? $item['g'] : $totals[$k]['g'];
+        $totals[$k]['b'] = ($item['b'] ?? 0) > $totals[$k]['b'] ? $item['b'] : $totals[$k]['b'];
+    }
+    $pow += array_product(array_values($totals[$k]));
+}
+
+print_r($totals);
+echo $pow; // 70768
