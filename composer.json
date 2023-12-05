@@ -1,0 +1,15 @@
+{
+  "name": "rib/aoc2023",
+  "autoload": {
+    "psr-4": {
+      "Aoc2023\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Rikard Bartholf",
+      "email": "rikard@bartholf.nu"
+    }
+  ],
+  "require": {}
+}
