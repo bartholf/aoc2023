@@ -113,7 +113,8 @@ class Day3 extends DayBase
     public function part2(): int
     {
         $this->setIndata('day3p2.txt');
-        $this->getGears();
+        $gearIndex = $this->getGears();
+
         return 0;
     }
 }
