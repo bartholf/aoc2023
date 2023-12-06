@@ -21,22 +21,33 @@ class Day4 extends DayBase
         return $dispatchedRows;
     }
 
+    private function countWinners(array $pair): array
+    {
+        $cnt = count(array_values(array_intersect($pair[1], $pair[0])));
+        $value = 0;
+        for ($i = 0; $i < $cnt; $i++) {
+            if ($value === 0) {
+                $value = 1;
+                continue;
+            }
+            $value *= 2;
+        }
+
+        return [$cnt, $value];
+    }
+
     private function processPart1(): int
     {
         $total = 0;
         foreach($this->getPairs() as $pair) {
-            $value = 0;
-            $cnt = count(array_values(array_intersect($pair[1], $pair[0])));
-            for ($i = 0; $i < $cnt; $i++) {
-                if ($value === 0) {
-                    $value = 1;
-                    continue;
-                }
-                $value *= 2;
-            }
-            $total += $value;
+            $total += $this->countWinners($pair)[1];
         }
         return (int) $total;
+    }
+
+    public function processPart2(): int
+    {
+        return 0;
     }
 
     public function part1(): int // 21088
