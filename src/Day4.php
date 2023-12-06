@@ -25,6 +25,7 @@ class Day4 extends DayBase
     {
         $cnt = count(array_values(array_intersect($pair[1], $pair[0])));
         $value = 0;
+
         for ($i = 0; $i < $cnt; $i++) {
             if ($value === 0) {
                 $value = 1;
@@ -47,6 +48,13 @@ class Day4 extends DayBase
 
     public function processPart2(): int
     {
+        $copies = 0;
+        foreach($this->getPairs() as $pair) {
+            $copies += $this->countWinners($pair)[0];
+        }
+
+        return count($this->file->getLines()) + count($copies);
+
         return 0;
     }
 
