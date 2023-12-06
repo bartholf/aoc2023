@@ -92,10 +92,6 @@ class Day3 extends DayBase
         foreach ($lines as $line) {
             preg_match_all('/\*/', $line, $matches, PREG_OFFSET_CAPTURE);
             foreach(current($matches) as $match) {
-                if (!$match) {
-                    $rowIx++;
-                    continue;
-                }
                 if (!is_array($found[$rowIx] ?? null)) {
                     $found[$rowIx] = [];
                 }
@@ -103,6 +99,8 @@ class Day3 extends DayBase
             }
             $rowIx++;
         }
+
+        return $found;
     }
 
     public function part1(): int
