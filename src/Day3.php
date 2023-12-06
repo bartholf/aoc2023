@@ -88,16 +88,19 @@ class Day3 extends DayBase
     {
         $lines = $this->file->getLines();
         $rowIx = 0;
-        $found = range(0, count($lines) - 1);
+        $found = [];
         foreach ($lines as $line) {
             preg_match_all('/\*/', $line, $matches, PREG_OFFSET_CAPTURE);
-            if ($match = $matches[0][0][1] ?? null) {
-                if (!is_array($found[$rowIx])) {
+            foreach(current($matches) as $match) {
+                if (!$match) {
+                    $rowIx++;
+                    continue;
+                }
+                if (!is_array($found[$rowIx] ?? null)) {
                     $found[$rowIx] = [];
                 }
-                $found[$rowIx][] = $match;
+                $found[$rowIx][] = $match[1];
             }
-            print_r($found);
             $rowIx++;
         }
     }
